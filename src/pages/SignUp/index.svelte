@@ -40,3 +40,6 @@ $: {
 {#if processIndex === 1}
   <Auth handleNext={handleNext} isClickableNext={isNecessaryChecked} />
 {/if}
+{#if processIndex === 2}
+  <p>complete</p>
+{/if}

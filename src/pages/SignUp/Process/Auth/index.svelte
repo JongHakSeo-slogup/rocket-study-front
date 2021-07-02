@@ -1,12 +1,25 @@
 <script>
-import { Label, Button, Col, FormGroup, Input, Row } from "sveltestrap";
+import {
+  Spinner,
+  Label,
+  Button,
+  Col,
+  FormGroup,
+  Input,
+  Row,
+} from "sveltestrap";
 import { form } from "svelte-forms";
-import { requestAuthNumber } from "../../../../apis/auth";
+import {
+  requestAuthNumber,
+  requestAuthNumberToken,
+} from "../../../../apis/auth";
+import { authToken } from "../../../../store";
 
 export let handleNext;
-export let isClickableNext = false;
 
 let certType = "phone";
+let isLoading = false;
+let isRequestAuthNum = false;
 
 let phoneNo = "";
 let email = "";
@@ -60,6 +73,7 @@ const requestCert = async () => {
       const result = await requestAuthNumber(certType, phoneNo, email);
       console.log(result);
       alert(result.authNum);
+      isRequestAuthNum = true;
     } catch (e) {
       console.error(e);
       alert(e.msg);
@@ -67,11 +81,27 @@ const requestCert = async () => {
   }
 };
 
-$: {
-  // console.log(certType);
-  // console.log($authForm.fields.phone.errors);
-  // console.log($authForm.fields.email.errors);
-  // console.log(phoneNo, email);
+const checkAuthNumber = async () => {
+  isLoading = true;
+  try {
+    const { msg, token } = await requestAuthNumberToken(
+      certType,
+      phoneNo,
+      email,
+      authNum
+    );
+    alert(msg);
+    authToken.set(token);
+    handleNext();
+  } catch (e) {
+    alert(e.msg);
+  } finally {
+    isLoading = false;
+  }
+};
+
+$: if (authNum.length === 6) {
+  checkAuthNumber();
 }
 </script>
 
@@ -118,16 +148,17 @@ $: {
 <Row class="fluid pb-5">
   <Col class="mx-auto pt-5" xs="5">
     <div style="display: flex; justify-content: space-between">
-      <Col style="margin-right: 16px" xs="7">
-        <Input bind:value={authNum} />
-      </Col>
-      <Button class="bg-warning" on:click={requestCert}>인증번호 받기</Button>
+      {#if isRequestAuthNum}
+        <Col style="margin-right: 16px" xs="7">
+          <Input bind:value={authNum} disabled={isLoading} />
+        </Col>
+      {/if}
+      {#if isLoading}
+        <Spinner color="info" />
+      {/if}
+      {#if !isLoading}
+        <Button class="bg-warning" on:click={requestCert}>인증번호 받기</Button>
+      {/if}
     </div>
-  </Col>
-</Row>
-<Row class="fluid pb-5">
-  <Col class="mx-auto pt-5" xs="5">
-    <Button disabled={!isClickableNext} class="bg-primary" on:click={handleNext}
-      >다음으로</Button>
   </Col>
 </Row>
