@@ -78,7 +78,7 @@ export let isClickableNext = false;
     </Card>
   </Col>
 </Row>
-<Row class="fluid">
+<Row class="fluid pb-5">
   <Col class="mx-auto pt-5" xs="10">
     <Button disabled={!isClickableNext} class="bg-primary" on:click={handleNext}
       >다음으로</Button>

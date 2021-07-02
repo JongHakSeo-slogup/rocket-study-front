@@ -4,7 +4,7 @@ import Auth from "./Process/Auth/index.svelte";
 
 let optionalAgreeTerms = [];
 let isNecessaryChecked = false;
-let processIndex = 0;
+let processIndex = 1;
 
 const handleCheckNecessary = (e) => {
   if (e.target.checked !== undefined) {
@@ -24,6 +24,10 @@ const handleCheckOptional = (e) => {
 const handleNext = () => {
   processIndex += 1;
 };
+
+$: {
+  console.log(optionalAgreeTerms);
+}
 </script>
 
 {#if processIndex === 0}

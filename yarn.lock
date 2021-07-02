@@ -1790,6 +1790,11 @@ svelte-eslint-parser@^0.4.1:
     eslint-visitor-keys "^3.0.0"
     espree "^7.3.1"
 
+svelte-forms@^1.1.51:
+  version "1.1.51"
+  resolved "https://registry.yarnpkg.com/svelte-forms/-/svelte-forms-1.1.51.tgz#b23b70173e08c232afe1dcb39fd0494eb1da610e"
+  integrity sha512-4SRwe0pJA9KvirkLAbi2uf4LWA3PoUS34bJkpqbgNFXERFVtSCbt9ZJ3Phu/bbRbYuQ6MptD7HuqsDZbCXd8Hw==
+
 svelte-routing@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-1.6.0.tgz#cdfed6b665d4a851f3d7e532e16bfbb318ce5294"
