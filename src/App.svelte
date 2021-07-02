@@ -1,7 +1,8 @@
 <script>
-	import Router from 'svelte-spa-router'
-	import { Styles } from 'sveltestrap';
+	import Router from 'svelte-spa-router';
+	import { Styles, Col, Container, Row } from 'sveltestrap'; 
 	import { routes } from "./routes";
+	// import Breadcrumbs from './components/Breadcrumbs/index.svelte';
 
 	export let title;
 </script>
@@ -16,10 +17,20 @@
 <Styles/>
 
 <body>
+<!--<Breadcrumbs/>-->
+<Container>
 <nav>
+	<Row>
+
+	<Col>
 	<a href="/">처음으로</a>
-	<a href="#/signup">회원가입</a>
-	<a href="#/about">about</a>
-</nav>
+	</Col>
+	<Col><a href="#/signup">회원가입</a></Col>
+	<Col><a href="#/about">about</a></Col>
+	</Row>
+
+	</nav>
+</Container>
 <Router {routes}/>
 </body>
+
