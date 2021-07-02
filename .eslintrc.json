@@ -1,7 +1,6 @@
 {
   "root": true,
   "rules": {
-    "prettier/prettier": "warn",
     "semi": [2, "always"],
     "keyword-spacing": [2, { "before": true, "after": true }],
     "space-before-blocks": [2, "always"],
@@ -30,20 +29,18 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:promise/recommended",
     "plugin:import/warnings"
   ],
-  "plugins": ["svelte3", "prettier"],
+  "plugins": ["svelte3"],
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module"
   },
   "overrides": [{
-    "files": "**/*.svelte",
-    "processor": "svelte3/svelte3",
-    "parser": "svelte-eslint-parser"
+    "files": "*.svelte",
+    "processor": "svelte3/svelte3"
   }],
   "settings": {
     "import/core-modules": ["svelte"]
