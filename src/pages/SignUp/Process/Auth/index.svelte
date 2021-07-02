@@ -1,6 +1,7 @@
 <script>
 import { Label, Button, Col, FormGroup, Input, Row } from "sveltestrap";
 import { form } from "svelte-forms";
+import { requestAuthNumber } from "../../../../apis/auth";
 
 export let handleNext;
 export let isClickableNext = false;
@@ -9,6 +10,7 @@ let certType = "phone";
 
 let phoneNo = "";
 let email = "";
+let authNum = "";
 
 const lengthCheck = (value) => ({
   valid: value.length === 11,
@@ -40,19 +42,36 @@ const handleChangeType = (e) => {
   email = "";
 };
 
-const requestCert = (e) => {
+const requestCert = async () => {
   authForm.validate();
-
-  if (authForm.fields.phone.errors) {
-    console.log("send");
+  let isValid = false;
+  if (certType === "phone") {
+    if ($authForm.fields.phone.errors.length === 0) {
+      isValid = true;
+    }
+  }
+  if (certType === "email") {
+    if ($authForm.fields.email.errors.length === 0) {
+      isValid = true;
+    }
+  }
+  if (isValid) {
+    try {
+      const result = await requestAuthNumber(certType, phoneNo, email);
+      console.log(result);
+      alert(result.authNum);
+    } catch (e) {
+      console.error(e);
+      alert(e.msg);
+    }
   }
 };
 
 $: {
-  console.log(certType);
-  console.log($authForm.fields.phone.errors);
-  console.log($authForm.fields.email.errors);
-  console.log(phoneNo, email);
+  // console.log(certType);
+  // console.log($authForm.fields.phone.errors);
+  // console.log($authForm.fields.email.errors);
+  // console.log(phoneNo, email);
 }
 </script>
 
@@ -100,7 +119,7 @@ $: {
   <Col class="mx-auto pt-5" xs="5">
     <div style="display: flex; justify-content: space-between">
       <Col style="margin-right: 16px" xs="7">
-        <Input />
+        <Input bind:value={authNum} />
       </Col>
       <Button class="bg-warning" on:click={requestCert}>인증번호 받기</Button>
     </div>

@@ -30,6 +30,7 @@
     "svelte-eslint-parser": "^0.4.1"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "sirv-cli": "^1.0.0",
     "svelte-forms": "^1.1.51",
     "svelte-routing": "^1.6.0",
