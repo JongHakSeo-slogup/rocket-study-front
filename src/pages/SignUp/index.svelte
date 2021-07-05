@@ -1,10 +1,18 @@
 <script>
 import Terms from "./Process/Terms/index.svelte";
 import Auth from "./Process/Auth/index.svelte";
+import Form from "./Process/Form/index.svelte";
+import Complete from "./Process/Complete/index.svelte";
 
+let authToken = "";
+let userId = "";
 let optionalAgreeTerms = [];
 let isNecessaryChecked = false;
-let processIndex = 1;
+let processIndex = 0;
+
+const setAuthToken = (token) => (authToken = token);
+
+const setUserId = (id) => (userId = id);
 
 const handleCheckNecessary = (e) => {
   if (e.target.checked !== undefined) {
@@ -25,6 +33,10 @@ const handleNext = () => {
   processIndex += 1;
 };
 
+const handleSignUp = () => {
+  handleNext();
+};
+
 $: {
   console.log(optionalAgreeTerms);
 }
@@ -36,10 +48,13 @@ $: {
     isClickableNext={isNecessaryChecked}
     handleCheckNecessary={handleCheckNecessary}
     handleCheckOptional={handleCheckOptional} />
-{/if}
-{#if processIndex === 1}
-  <Auth handleNext={handleNext} isClickableNext={isNecessaryChecked} />
-{/if}
-{#if processIndex === 2}
-  <p>complete</p>
+{:else if processIndex === 1}
+  <Auth
+    setAuthToken={setAuthToken}
+    setUserId={setUserId}
+    handleNext={handleNext} />
+{:else if processIndex === 2}
+  <Form handleSignUp={handleSignUp} userId={userId} />
+{:else if processIndex === 3}
+  <Complete />
 {/if}

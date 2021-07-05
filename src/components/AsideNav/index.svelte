@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Nav, NavLink } from "sveltestrap";
-import { ListGroup } from "sveltestrap";
+import { Nav, NavLink, ListGroup } from "sveltestrap";
 import { ROUTE_INFOS } from "../../routes/index";
+
 let pageNow = window.location.hash;
 
 window.addEventListener("hashchange", checkHash);

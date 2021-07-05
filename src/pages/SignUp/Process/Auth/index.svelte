@@ -13,8 +13,9 @@ import {
   requestAuthNumber,
   requestAuthNumberToken,
 } from "../../../../apis/auth";
-import { authToken } from "../../../../store";
 
+export let setUserId;
+export let setAuthToken;
 export let handleNext;
 
 let certType = "phone";
@@ -30,7 +31,7 @@ const lengthCheck = (value) => ({
   name: "lengthCheck",
 });
 
-$: authForm = form(
+const authForm = form(
   () => ({
     phone: {
       value: phoneNo,
@@ -91,7 +92,12 @@ const checkAuthNumber = async () => {
       authNum
     );
     alert(msg);
-    authToken.set(token);
+    setAuthToken(token);
+    if (certType === "phone") {
+      setUserId(phoneNo);
+    } else {
+      setUserId(email);
+    }
     handleNext();
   } catch (e) {
     alert(e.msg);
