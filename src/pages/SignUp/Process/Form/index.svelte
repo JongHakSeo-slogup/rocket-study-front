@@ -20,6 +20,7 @@ let userName = "";
 let isLoading = false;
 
 const equal = (value) => ({ valid: value === password, name: "equal" });
+//TODO lengthCheck -> regex
 
 const signUpForm = form(
   () => ({
@@ -55,6 +56,10 @@ const handleClickSighUp = async () => {
     }
   }
 };
+
+$: {
+  console.log(typeof password);
+}
 </script>
 
 <Row class="fluid">
@@ -78,19 +83,19 @@ const handleClickSighUp = async () => {
     <FormGroup>
       <Label for="password">Password</Label>
       <Input
-        bind:value={password}
+        bind:value={`${password}`}
         disabled={isLoading}
         maxlength="20"
         invalid={$signUpForm.fields.password.errors.length > 0}
         type="password"
         name="password"
         id="password"
-        placeholder="8~20글자의 비밀번호를 입력해주세요." />
+        placeholder="숫자, 문자 조합의 8~20글자" />
     </FormGroup>
     <FormGroup>
       <Label for="passwordRepeat">Password</Label>
       <Input
-        bind:value={passwordRepeat}
+        bind:value={`${passwordRepeat}`}
         disabled={isLoading}
         maxlength="20"
         invalid={$signUpForm.fields.passwordRepeat.errors.length > 0}

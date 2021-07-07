@@ -169,10 +169,12 @@ $: if (authNum.length === 6) {
     <Col class="mx-auto pt-5" xs="5">
       <div style="display: flex; justify-content: space-between">
         <Col style="margin-right: 16px" xs="7">
-          <Input
-            bind:value={authNum}
-            disabled={isLoading}
-            placeholder="인증번호 6자리" />
+          <label>
+            <Input
+              bind:value={authNum}
+              disabled={isLoading}
+              placeholder="인증번호 6자리" />
+          </label>
         </Col>
         <Button
           class="bg-primary"
