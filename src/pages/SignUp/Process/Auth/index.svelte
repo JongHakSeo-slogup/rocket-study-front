@@ -17,8 +17,9 @@ import {
 export let setUserId;
 export let setAuthToken;
 export let handleNext;
+export let setCertType;
+export let certType = "phone";
 
-let certType = "phone";
 let isLoading = false;
 let isRequestAuthNum = false;
 
@@ -51,7 +52,7 @@ const authForm = form(
 );
 
 const handleChangeType = (e) => {
-  certType = e.target.value;
+  setCertType(e.target.value);
   phoneNo = "";
   email = "";
 };
@@ -151,14 +152,9 @@ $: if (authNum.length === 6) {
     {/if}
   </Col></Row>
 
-<Row class="fluid pb-5">
-  <Col class="mx-auto pt-5" xs="5">
+<Row class="fluid pb-2">
+  <Col class="mx-auto pt-1" xs="5">
     <div style="display: flex; justify-content: space-between">
-      {#if isRequestAuthNum}
-        <Col style="margin-right: 16px" xs="7">
-          <Input bind:value={authNum} disabled={isLoading} />
-        </Col>
-      {/if}
       {#if isLoading}
         <Spinner color="info" />
       {/if}
@@ -168,3 +164,21 @@ $: if (authNum.length === 6) {
     </div>
   </Col>
 </Row>
+{#if isRequestAuthNum}
+  <Row class="fluid pb-5">
+    <Col class="mx-auto pt-5" xs="5">
+      <div style="display: flex; justify-content: space-between">
+        <Col style="margin-right: 16px" xs="7">
+          <Input
+            bind:value={authNum}
+            disabled={isLoading}
+            placeholder="인증번호 6자리" />
+        </Col>
+        <Button
+          class="bg-primary"
+          on:click={checkAuthNumber}
+          disabled={authNum.toString().length !== 6}>확인</Button>
+      </div>
+    </Col>
+  </Row>
+{/if}

@@ -7,7 +7,7 @@ export const requestAuthNumber = async (type, phoneNo, email) => {
     email,
   };
 
-  return request({method:'post', url:`/account/auth-nums`, body});
+  return request({ method: "post", url: `/account/auth-nums`, body });
 };
 
 export const requestAuthNumberToken = async (type, phoneNo, email, authNum) => {
@@ -15,8 +15,19 @@ export const requestAuthNumberToken = async (type, phoneNo, email, authNum) => {
     type,
     phoneNo,
     email,
-    authNum
+    authNum,
   };
 
-  return request({method:'post', url:`/account/auth-num-tokens`, body});
+  return request({ method: "post", url: `/account/auth-num-tokens`, body });
+};
+
+export const requestSignUp = async (id, password, name, agreeTerms, token) => {
+  const body = {
+    id,
+    password,
+    name,
+    agreeTerms,
+    token,
+  };
+  return request({ method: "post", url: `/account/sign-up`, body });
 };

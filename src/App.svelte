@@ -3,6 +3,12 @@ import Router from "svelte-spa-router";
 import { Styles, Col, Row } from "sveltestrap";
 import { routes } from "./routes";
 import AsideNav from "./components/AsideNav/index.svelte";
+import { rootUrl } from "./store";
+import axios from "axios";
+
+$: {
+  axios.defaults.baseURL = $rootUrl;
+}
 
 export let title;
 </script>

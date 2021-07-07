@@ -85,7 +85,7 @@ const handleClickSighUp = async () => {
         type="password"
         name="password"
         id="password"
-        placeholder="비밀번호를 입력해주세요." />
+        placeholder="8~20글자의 비밀번호를 입력해주세요." />
     </FormGroup>
     <FormGroup>
       <Label for="passwordRepeat">Password</Label>
@@ -114,7 +114,7 @@ const handleClickSighUp = async () => {
         <Spinner color="info" />
       {:else}
         <Button class="bg-warning" on:click={handleClickSighUp}
-          >인증번호 받기</Button>
+          >가입하기</Button>
       {/if}
     </div>
   </Col>
